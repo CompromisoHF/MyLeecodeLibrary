@@ -1,0 +1,38 @@
+class Solution {
+public:
+    int uniqueMorseRepresentations(vector<string>& words) {
+        string str[]= {".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."};
+        
+        int Len = words.size();
+        int ans;
+		int k = 0, index = 0;
+		string  addresses[101];
+        
+        for (int i=0;i<Len;i++){
+            string temp = "";
+            int L = words[i].size();
+            
+            for (int j=0;j<L;j++){
+                ans = (int)words[i][j];
+                ans = ans - 97;
+                temp = temp + str[ans];
+            }
+            
+            index = 0;
+            
+			for (int j=0; j < k; j++) {
+				if ((temp) == addresses[j]) {
+					index = -1;
+				}
+			}
+
+			if (index == 0) {
+				addresses[k] = temp;
+				k++;
+			}            
+            
+        }
+        
+        return k;
+    }
+};
