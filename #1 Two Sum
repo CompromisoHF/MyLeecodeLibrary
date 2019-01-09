@@ -1,0 +1,54 @@
+class Solution {
+public:
+  static int comp ( const void *a , const void *b ) {
+            return *(int *)a - *(int *)b;  
+        }
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> ans(2,0);        
+        int k=0;
+        int len = nums.size();
+        int tempnums[len];
+                
+        for (int i = 0 ; i<=len-1 ;i++){
+            tempnums[i] = nums[i];
+        }
+        
+        qsort(tempnums,len,sizeof(int),comp);
+        
+        int L_end = 0; 
+        int R_end = len-1;
+        
+        while(R_end > L_end)
+        {
+            int tempsum = tempnums[R_end]+tempnums[L_end];
+            if (tempsum == target)
+            {
+                break;
+            }
+            else
+            {
+                if (tempsum>target)
+                {
+                    R_end--;
+                }
+                else
+                {
+                    L_end++;
+                }
+            }
+        }
+        
+        
+        for (int i = 0 ; i<=len-1 ;i++)
+        {
+           if ((nums[i]==tempnums[L_end])||(nums[i]==tempnums[R_end]))
+           {
+               ans[k] = i;
+               k++;
+           }
+        }
+        
+        
+        return ans;
+    }
+};
