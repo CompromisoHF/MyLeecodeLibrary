@@ -1,0 +1,49 @@
+class Solution {
+public:
+    
+    vector<string> Maphash;
+    long int num ;
+    char base62[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz" ;
+        
+    // Encodes a URL to a shortened URL.
+    string encode(string longUrl) {
+       vector<string>::iterator ret = std::find(Maphash.begin(), Maphash.end(), longUrl);
+       long int savenum =  distance(Maphash.begin(), ret)+1;
+       if (ret == Maphash.end()){
+          num = Maphash.size()+1;
+          Maphash.push_back(longUrl);
+          savenum = num;
+       }
+       
+       char ans[6];
+       for (int i=0;i<=5;i++){
+           ans[5-i] = base62[savenum % 62];
+           savenum = savenum/62;
+       }
+       return ans; 
+    }
+
+    // Decodes a shortened URL to its original URL.
+    string decode(string shortUrl) {
+        long int aimnum = 0;
+        for (int i=0;i<=5;i++){
+            char aim = shortUrl[i];            
+            if (aim<'A'){
+                aimnum = aimnum*62 +  (int)aim - (int)'0' ;
+            }
+            else if (aim<'a'){
+                aimnum = aimnum*62 + (int)aim - (int)'A' ;
+            }
+            else {
+                aimnum = aimnum*62 + (int)aim - (int)'a' ;
+            }
+        }
+        return Maphash[aimnum] ;
+    }
+    
+
+};
+
+// Your Solution object will be instantiated and called as such:
+// Solution solution;
+// solution.decode(solution.encode(url));
