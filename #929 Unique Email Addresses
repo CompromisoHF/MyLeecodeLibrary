@@ -1,0 +1,56 @@
+class Solution {
+public:
+	int numUniqueEmails(vector<string>& emails) {
+		int Len = emails.size();
+		int k = 0, index = 0;
+		string  addresses[101];
+		string  tempadd;
+
+		for (int i = 0; i < Len; i++) {
+
+			int position = -1;
+			int posignore = -1;
+			int posidos = -1;
+
+			while ((position = emails[i].find_first_of('@', position + 1)) != string::npos) {
+				break;
+			}
+
+			while ((posignore = emails[i].find_first_of('+', posignore + 1)) != string::npos) {
+				break;
+			}
+			int L = emails[i].size();
+			string locname = emails[i].substr(0, posignore);
+			string domname = emails[i].substr(position + 1, L);
+			//cout << locname << endl;
+			//cout << domname << endl;
+			//cout << emails[i] << endl;
+			string realocname = locname;
+
+			while ((posidos = realocname.find_first_of('.', posidos + 1)) != string::npos) {
+				realocname = realocname.substr(0, posidos) + realocname.substr(posidos + 1, posignore);
+			}
+
+			
+			index = 0;
+			tempadd = realocname + '@' + domname;
+
+		    //cout << tempadd << endl;
+
+			for (int j = 0; j < k; j++) {
+				if ((tempadd) == addresses[j]) {
+					index = -1;
+				}
+			}
+
+			if (index == 0) {
+				addresses[k] = tempadd;
+				k++;
+			}
+
+		}
+
+		return k;
+
+	}
+};
