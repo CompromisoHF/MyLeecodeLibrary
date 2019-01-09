@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int maxIncreaseKeepingSkyline(vector<vector<int>>& grid) {
+        int ISize = grid.size();
+        int JSize = grid[0].size();
+        vector<int> JMax(JSize,0);
+        vector<int> IMax(ISize,0);
+        int target;
+        int sum = 0;
+        int i,j;
+        
+        for (i=0;i<=ISize-1;i++){
+            for (j=0;j<=JSize-1;j++){
+                if(IMax[i]<grid[i][j]){
+                    IMax[i] = grid[i][j];
+                }
+            }
+        }
+        
+        for (j=0;j<=JSize-1;j++){
+            for (i=0;i<=ISize-1;i++){
+                if(JMax[j]<grid[i][j]){
+                    JMax[j] = grid[i][j];
+                }
+            }
+        }
+        
+        for (i=0;i<=ISize-1;i++){
+            for (j=0;j<=JSize-1;j++){
+                if (IMax[i]>JMax[j]){
+                    target = JMax[j];
+                }
+                else{
+                    target = IMax[i];
+                }
+                sum = sum + target - grid[i][j];
+            }
+        }
+        
+        return sum;
+    }
+};
