@@ -28,7 +28,7 @@ public:
 
 			if (index == 0) {
 				addresses[k] = temp;
-				k++;
+			        k++;
 			}            
             
         }
