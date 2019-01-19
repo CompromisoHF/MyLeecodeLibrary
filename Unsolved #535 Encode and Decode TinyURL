@@ -41,7 +41,6 @@ public:
         return Maphash[aimnum] ;
     }
     
-
 };
 
 // Your Solution object will be instantiated and called as such:
